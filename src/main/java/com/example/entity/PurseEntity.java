@@ -20,6 +20,10 @@ public class PurseEntity extends BaseEntity {
     @JoinColumn(name = "currency_id", nullable = false)
     private CurrencyEntity currency;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "person_id", nullable = false)
+    private ClientEntity client;
+
     public String getNumber() {
         return number;
     }
@@ -50,5 +54,13 @@ public class PurseEntity extends BaseEntity {
 
     public void setCurrency(CurrencyEntity currency) {
         this.currency = currency;
+    }
+
+    public ClientEntity getClient() {
+        return client;
+    }
+
+    public void setClient(ClientEntity client) {
+        this.client = client;
     }
 }
