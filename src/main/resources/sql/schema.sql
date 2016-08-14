@@ -1,14 +1,14 @@
 CREATE TABLE "person" (
-	id serial NOT NULL,
-	"first_name" VARCHAR(45) NOT NULL,
-	"middle_name" VARCHAR(45),
-	"last_name" VARCHAR(45) NOT NULL,
-	"email" VARCHAR(100) NOT NULL UNIQUE,
-	"password" VARCHAR(100) NOT NULL,
-	"cell_phone" VARCHAR(20) NOT NULL,
-	"creation_date" TIMESTAMP NOT NULL,
-	"last_edit_date" TIMESTAMP NOT NULL,
-	"discriminator" VARCHAR(255) NOT NULL UNIQUE,
+  id               serial       NOT NULL,
+  "first_name"     VARCHAR(45)  NOT NULL,
+  "middle_name"    VARCHAR(45),
+  "last_name"      VARCHAR(45)  NOT NULL,
+  "email"          VARCHAR(100) NOT NULL UNIQUE,
+  "password"       VARCHAR(100) NOT NULL,
+  "cell_phone"     VARCHAR(20)  NOT NULL,
+  "creation_date"  TIMESTAMP    NOT NULL,
+  "last_edit_date" TIMESTAMP    NOT NULL,
+  "discriminator"  VARCHAR(255) NOT NULL,
 	CONSTRAINT person_pk PRIMARY KEY ("id")
 
 ) WITH (
@@ -18,8 +18,10 @@ CREATE TABLE "person" (
 
 
 CREATE TABLE "role" (
-	"id" serial NOT NULL,
-	"name" VARCHAR(50) NOT NULL UNIQUE,
+  "id"             serial      NOT NULL,
+  "name"           VARCHAR(50) NOT NULL UNIQUE,
+  "creation_date"  TIMESTAMP   NOT NULL,
+  "last_edit_date" TIMESTAMP   NOT NULL,
 	CONSTRAINT role_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
@@ -81,8 +83,7 @@ CREATE TABLE "purse_type" (
 );
 
 
-
-CREATE TABLE "name" (
+CREATE TABLE "currency" (
 	"id" serial NOT NULL,
 	"name" varchar(45) NOT NULL UNIQUE,
 	"creation_date" TIMESTAMP NOT NULL,
@@ -128,14 +129,16 @@ ALTER TABLE "person_role" ADD CONSTRAINT "person_role_fk0" FOREIGN KEY ("person_
 ALTER TABLE "person_role" ADD CONSTRAINT "person_role_fk1" FOREIGN KEY ("role_id") REFERENCES "role"("id");
 
 ALTER TABLE "purse" ADD CONSTRAINT "purse_fk0" FOREIGN KEY ("purse_type_id") REFERENCES "purse_type"("id");
-ALTER TABLE "purse" ADD CONSTRAINT "purse_fk1" FOREIGN KEY ("currency_id") REFERENCES "name"("id");
+ALTER TABLE "purse"
+  ADD CONSTRAINT "purse_fk1" FOREIGN KEY ("currency_id") REFERENCES "currency" ("id");
 ALTER TABLE "purse" ADD CONSTRAINT "purse_fk2" FOREIGN KEY ("person_id") REFERENCES "person"("id");
 
 ALTER TABLE "transaction" ADD CONSTRAINT "transaction_fk0" FOREIGN KEY ("source_purse_id") REFERENCES "purse"("id");
 ALTER TABLE "transaction" ADD CONSTRAINT "transaction_fk1" FOREIGN KEY ("destination_purse_id") REFERENCES "purse"("id");
 
 
-
-ALTER TABLE "commission" ADD CONSTRAINT "commission_fk0" FOREIGN KEY ("source_currency_id") REFERENCES "name"("id");
-ALTER TABLE "commission" ADD CONSTRAINT "commission_fk1" FOREIGN KEY ("destination_currency_id") REFERENCES "name"("id");
+ALTER TABLE "commission"
+  ADD CONSTRAINT "commission_fk0" FOREIGN KEY ("source_currency_id") REFERENCES "currency" ("id");
+ALTER TABLE "commission"
+  ADD CONSTRAINT "commission_fk1" FOREIGN KEY ("destination_currency_id") REFERENCES "currency" ("id");
 
