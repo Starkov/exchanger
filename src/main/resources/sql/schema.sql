@@ -56,15 +56,16 @@ CREATE TABLE "purse" (
 
 
 CREATE TABLE "transaction" (
-	"id" serial NOT NULL,
-	"creation_date" TIMESTAMP NOT NULL,
-	"final_date" TIMESTAMP,
-	"amount" numeric(24,6) NOT NULL,
-	"action" VARCHAR(20) NOT NULL,
-	"source_purse_id" integer NOT NULL,
-	"destination_purse_id" integer NOT NULL,
-	"description" VARCHAR(100),
-	"status" VARCHAR(20) NOT NULL,
+  "id"                   serial        NOT NULL,
+  "creation_date"        TIMESTAMP     NOT NULL,
+  "last_edit_date"       TIMESTAMP     NOT NULL,
+  "final_date"           TIMESTAMP,
+  "amount"               numeric(24,6) NOT NULL,
+  "action"               VARCHAR(20)   NOT NULL,
+  "source_purse_id"      integer       NOT NULL,
+  "destination_purse_id" integer       NOT NULL,
+  "description"          VARCHAR(100),
+  "status"               VARCHAR(20)   NOT NULL,
 	CONSTRAINT transaction_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE

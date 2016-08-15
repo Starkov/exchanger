@@ -2,6 +2,7 @@ package com.example.entity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity(name = "purse")
 public class PurseEntity extends BaseEntity {
@@ -23,6 +24,9 @@ public class PurseEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "person_id", nullable = false)
     private ClientEntity client;
+
+    @OneToMany(mappedBy = "source")
+    private List<TransactionEntity> transactions;
 
     public String getNumber() {
         return number;
@@ -62,5 +66,13 @@ public class PurseEntity extends BaseEntity {
 
     public void setClient(ClientEntity client) {
         this.client = client;
+    }
+
+    public List<TransactionEntity> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<TransactionEntity> transactions) {
+        this.transactions = transactions;
     }
 }
