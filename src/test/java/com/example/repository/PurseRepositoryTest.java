@@ -2,14 +2,13 @@ package com.example.repository;
 
 import com.example.AbstractTest;
 import com.example.entity.*;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.util.HashSet;
-
-import static java.util.Collections.singletonList;
+import static com.example.BeanCharger.random;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 
 
@@ -26,96 +25,33 @@ public class PurseRepositoryTest extends AbstractTest {
     @Autowired
     private ClientRepository clientRepository;
 
+    private RoleEntity role;
+    private CurrencyEntity currency;
+    private PurseTypeEntity purseType;
+
+    @Before
+    public void setup() {
+        role = roleRepository.save(random(RoleEntity.class));
+        currency = currencyRepository.save(random(CurrencyEntity.class));
+        purseType = purseTypeRepository.save(random(PurseTypeEntity.class));
+    }
 
     @Test
     @Transactional
     public void save() {
-        RoleEntity role = new RoleEntity("admin");
-        role = roleRepository.save(role);
-
-        ClientEntity client = new ClientEntity();
-        client.setFirstName("first name");
-        client.setMiddleName("meddle name");
-        client.setLastName("last name");
-        client.setCellPhone("123");
-        client.setEmail("qwe12@tr.com");
-        client.setPassword("123");
-        client.setRoles(new HashSet<>(singletonList(role)));
-        role.setPerson(new HashSet<>(singletonList(client)));
-        client = clientRepository.save(client);
-
-        PurseTypeEntity type = new PurseTypeEntity();
-        type.setName("Bitcoin");
-        type = purseTypeRepository.save(type);
-
-        CurrencyEntity currency = new CurrencyEntity();
-        currency.setName(Currency.BIT);
-        currency = currencyRepository.save(currency);
-
-        PurseEntity purse = new PurseEntity();
-        purse.setBalance(BigDecimal.ONE);
-        purse.setNumber("123");
-
-        purse.setCurrency(currency);
-        currency.setPurses(new HashSet<>(singletonList(purse)));
-
-        purse.setClient(client);
-        client.setPurses(new HashSet<>(singletonList(purse)));
-
-        purse.setPurseType(type);
-        type.setPurses(new HashSet<>(singletonList(purse)));
-
-        repository.save(purse);
+        PurseEntity purse = createPurse();
         PurseEntity result = repository.findOne(purse.getId());
 
         assertNotNull(result);
         assertNotNull(result.getCurrency());
-        assertEquals(currency.getId(), result.getCurrency().getId());
         assertNotNull(result.getPurseType());
-        assertEquals(type.getId(), result.getPurseType().getId());
         assertNotNull(result.getClient());
-        assertEquals(client.getId(), result.getClient().getId());
         assertFalse(result.getClient().getRoles().isEmpty());
     }
 
     @Test
     public void update() {
-        RoleEntity role = new RoleEntity("admin");
-        role = roleRepository.save(role);
-
-        ClientEntity client = new ClientEntity();
-        client.setFirstName("first name");
-        client.setMiddleName("meddle name");
-        client.setLastName("last name");
-        client.setCellPhone("123");
-        client.setEmail("qwe12@tr.com");
-        client.setPassword("123");
-        client.setRoles(new HashSet<>(singletonList(role)));
-        role.setPerson(new HashSet<>(singletonList(client)));
-        client = clientRepository.save(client);
-
-        PurseTypeEntity type = new PurseTypeEntity();
-        type.setName("Bitcoin");
-        type = purseTypeRepository.save(type);
-
-        CurrencyEntity currency = new CurrencyEntity();
-        currency.setName(Currency.BIT);
-        currency = currencyRepository.save(currency);
-
-        PurseEntity purse = new PurseEntity();
-        purse.setBalance(BigDecimal.ONE);
-        purse.setNumber("123");
-
-        purse.setCurrency(currency);
-        currency.setPurses(new HashSet<>(singletonList(purse)));
-
-        purse.setClient(client);
-        client.setPurses(new HashSet<>(singletonList(purse)));
-
-        purse.setPurseType(type);
-        type.setPurses(new HashSet<>(singletonList(purse)));
-
-        repository.save(purse);
+        PurseEntity purse = createPurse();
         purse.setNumber("321");
         repository.save(purse);
         PurseEntity result = repository.findOne(purse.getId());
@@ -125,45 +61,24 @@ public class PurseRepositoryTest extends AbstractTest {
 
     @Test
     public void delete() {
-        RoleEntity role = new RoleEntity("admin");
-        role = roleRepository.save(role);
-
-        ClientEntity client = new ClientEntity();
-        client.setFirstName("first name");
-        client.setMiddleName("meddle name");
-        client.setLastName("last name");
-        client.setCellPhone("123");
-        client.setEmail("qwe12@tr.com");
-        client.setPassword("123");
-        client.setRoles(new HashSet<>(singletonList(role)));
-        role.setPerson(new HashSet<>(singletonList(client)));
-        client = clientRepository.save(client);
-
-        PurseTypeEntity type = new PurseTypeEntity();
-        type.setName("Bitcoin");
-        type = purseTypeRepository.save(type);
-
-        CurrencyEntity currency = new CurrencyEntity();
-        currency.setName(Currency.BIT);
-        currency = currencyRepository.save(currency);
-
-        PurseEntity purse = new PurseEntity();
-        purse.setBalance(BigDecimal.ONE);
-        purse.setNumber("123");
-
-        purse.setCurrency(currency);
-        currency.setPurses(new HashSet<>(singletonList(purse)));
-
-        purse.setClient(client);
-        client.setPurses(new HashSet<>(singletonList(purse)));
-
-        purse.setPurseType(type);
-        type.setPurses(new HashSet<>(singletonList(purse)));
-
-        repository.save(purse);
+        PurseEntity purse = createPurse();
         repository.delete(purse.getId());
         PurseEntity result = repository.findOne(purse.getId());
 
         assertNull(result);
+    }
+
+
+    private PurseEntity createPurse() {
+        ClientEntity client = random(ClientEntity.class);
+        client.setRoles(asList(role));
+
+        PurseEntity purse = random(PurseEntity.class);
+        purse.setClient(client);
+        client.setPurses(asList(purse));
+        purse.setPurseType(purseType);
+        purse.setCurrency(currency);
+        clientRepository.save(client);
+        return purse;
     }
 }
