@@ -1,21 +1,19 @@
 package com.example.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import java.util.Set;
+import javax.persistence.*;
+import java.util.List;
 
 import static javax.persistence.EnumType.STRING;
 
 @Entity(name = "currency")
 public class CurrencyEntity extends BaseEntity {
 
+    @Column(nullable = false)
     @Enumerated(STRING)
     private Currency name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "currency")
-    private Set<PurseEntity> purses;
+    private List<PurseEntity> purses;
 
     public CurrencyEntity() {
     }
@@ -32,11 +30,11 @@ public class CurrencyEntity extends BaseEntity {
         this.name = name;
     }
 
-    public Set<PurseEntity> getPurses() {
+    public List<PurseEntity> getPurses() {
         return purses;
     }
 
-    public void setPurses(Set<PurseEntity> purses) {
+    public void setPurses(List<PurseEntity> purses) {
         this.purses = purses;
     }
 }

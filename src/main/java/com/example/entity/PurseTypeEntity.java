@@ -3,7 +3,7 @@ package com.example.entity;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import java.util.Set;
+import java.util.List;
 
 @Entity(name = "purse_type")
 public class PurseTypeEntity extends BaseEntity {
@@ -11,7 +11,7 @@ public class PurseTypeEntity extends BaseEntity {
     private String name;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "purseType")
-    private Set<PurseEntity> purses;
+    private List<PurseEntity> purses;
 
     public PurseTypeEntity() {
     }
@@ -28,11 +28,11 @@ public class PurseTypeEntity extends BaseEntity {
         this.name = name;
     }
 
-    public Set<PurseEntity> getPurses() {
+    public List<PurseEntity> getPurses() {
         return purses;
     }
 
-    public void setPurses(Set<PurseEntity> purses) {
+    public void setPurses(List<PurseEntity> purses) {
         this.purses = purses;
     }
 }

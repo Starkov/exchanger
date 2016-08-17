@@ -1,7 +1,7 @@
 package com.example.entity;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "PERSON")
@@ -29,13 +29,16 @@ public abstract class PersonEntity extends BaseEntity {
     @JoinTable(name = "person_role",
             joinColumns = @JoinColumn(name = "person_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<RoleEntity> roles;
+    private List<RoleEntity> roles;
 
-    public Set<RoleEntity> getRoles() {
+    public PersonEntity() {
+    }
+
+    public List<RoleEntity> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<RoleEntity> roles) {
+    public void setRoles(List<RoleEntity> roles) {
         this.roles = roles;
     }
 

@@ -4,7 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
-import java.util.Set;
+import java.util.List;
 
 @Entity(name = "role")
 public class RoleEntity extends BaseEntity {
@@ -12,7 +12,7 @@ public class RoleEntity extends BaseEntity {
     private String name;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles")
-    private Set<PersonEntity> person;
+    private List<PersonEntity> persons;
 
     public RoleEntity() {
     }
@@ -29,11 +29,11 @@ public class RoleEntity extends BaseEntity {
         this.name = name;
     }
 
-    public Set<PersonEntity> getPerson() {
-        return person;
+    public List<PersonEntity> getPersons() {
+        return persons;
     }
 
-    public void setPerson(Set<PersonEntity> person) {
-        this.person = person;
+    public void setPersons(List<PersonEntity> person) {
+        this.persons = person;
     }
 }
