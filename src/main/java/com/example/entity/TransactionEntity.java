@@ -4,6 +4,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static javax.persistence.EnumType.STRING;
+
 @Entity(name = "transaction")
 public class TransactionEntity extends BaseEntity {
 
@@ -13,19 +15,22 @@ public class TransactionEntity extends BaseEntity {
     private BigDecimal amount;
 
     @Column(nullable = false)
+    @Enumerated(STRING)
     private Action action;
-
-    @ManyToOne //TODO
+    // что делать если придется удалять пользователя который пересылал ДЗ?
+    // Удалить транзакции вместе с пользователем и кошельками?
+    @OneToOne
     @JoinColumn(name = "source_purse_id")
     private PurseEntity source;
 
-    @OneToOne //TODO
+    @OneToOne
     @JoinColumn(name = "destination_purse_id")
     private PurseEntity destination;
 
     private String description;
 
     @Column(nullable = false)
+    @Enumerated(STRING)
     private Status status;
 
     public LocalDateTime getFinalDate() {
