@@ -1,23 +1,19 @@
 package com.example.repository;
 
-import com.example.AbstractTest;
+import com.example.AbstractRepositoryTest;
 import com.example.entity.PurseTypeEntity;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.Assert.*;
 
-public class PurseTypeRepositoryTest extends AbstractTest {
-
-    @Autowired
-    private PurseTypeRepository repository;
+public class PurseTypeRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void save() {
         PurseTypeEntity entity = new PurseTypeEntity("WebMoney");
 
-        repository.save(entity);
-        PurseTypeEntity result = repository.findOne(entity.getId());
+        purseTypeRepository.save(entity);
+        PurseTypeEntity result = purseTypeRepository.findOne(entity.getId());
 
         assertNotNull(result);
         assertNotNull(result.getId());
@@ -27,21 +23,21 @@ public class PurseTypeRepositoryTest extends AbstractTest {
     public void update() {
         String newName = "New name";
         PurseTypeEntity entity = new PurseTypeEntity("Bitcoin");
-        repository.save(entity);
+        purseTypeRepository.save(entity);
         entity.setName(newName);
-        repository.save(entity);
-        entity = repository.findOne(entity.getId());
+        purseTypeRepository.save(entity);
+        entity = purseTypeRepository.findOne(entity.getId());
         assertEquals(newName,entity.getName());
     }
 
     @Test
     public void delete() {
         PurseTypeEntity entity = new PurseTypeEntity("Bitcoin");
-        repository.save(entity);
+        purseTypeRepository.save(entity);
 
-        repository.delete(entity.getId());
+        purseTypeRepository.delete(entity.getId());
 
-        entity = repository.findOne(entity.getId());
+        entity = purseTypeRepository.findOne(entity.getId());
         assertNull(entity);
     }
 }

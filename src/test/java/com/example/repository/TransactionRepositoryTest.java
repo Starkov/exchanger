@@ -1,58 +1,16 @@
 package com.example.repository;
 
-import com.example.AbstractTest;
+import com.example.AbstractRepositoryTest;
 import com.example.BeanCharger;
-import com.example.entity.*;
-import org.junit.Before;
+import com.example.entity.PurseEntity;
+import com.example.entity.TransactionEntity;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static com.example.BeanCharger.random;
-import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 
-public class TransactionRepositoryTest extends AbstractTest {
-
-    @Autowired
-    private TransactionRepository transactionRepository;
-
-    @Autowired
-    private PurseRepository repository;
-    @Autowired
-    private PurseTypeRepository purseTypeRepository;
-    @Autowired
-    private CurrencyRepository currencyRepository;
-    @Autowired
-    private RoleRepository roleRepository;
-    @Autowired
-    private ClientRepository clientRepository;
-
-    private RoleEntity role;
-    private CurrencyEntity currency;
-    private PurseTypeEntity purseType;
-
-    @Before
-    public void setup() {
-        role = roleRepository.save(random(RoleEntity.class));
-        currency = currencyRepository.save(random(CurrencyEntity.class));
-        purseType = purseTypeRepository.save(random(PurseTypeEntity.class));
-    }
-
-    //TODO extract to general class
-    private PurseEntity createPurse() {
-        ClientEntity client = random(ClientEntity.class);
-        client.setRoles(asList(role));
-
-        PurseEntity purse = random(PurseEntity.class);
-        purse.setClient(client);
-        client.setPurses(asList(purse));
-        purse.setPurseType(purseType);
-        purse.setCurrency(currency);
-        clientRepository.save(client);
-        return purse;
-    }
+public class TransactionRepositoryTest extends AbstractRepositoryTest {
 
     @Test
     public void save() {
