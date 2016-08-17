@@ -20,6 +20,8 @@ public abstract class AbstractRepositoryTest extends AbstractTest {
     @Autowired
     protected ClientRepository clientRepository;
     @Autowired
+    protected EmployeeRepository employeeRepository;
+    @Autowired
     protected TransactionRepository transactionRepository;
 
 
@@ -60,5 +62,11 @@ public abstract class AbstractRepositoryTest extends AbstractTest {
         purse.setCurrency(createCurrency());
         clientRepository.save(client);
         return client;
+    }
+
+    protected EmployeeEntity createEmployee() {
+        EmployeeEntity employee = random(EmployeeEntity.class);
+        employee.setRoles(asList(createRole()));
+        return employeeRepository.save(employee);
     }
 }

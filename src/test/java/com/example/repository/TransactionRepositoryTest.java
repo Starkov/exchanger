@@ -12,6 +12,8 @@ import static org.junit.Assert.*;
 
 public class TransactionRepositoryTest extends AbstractRepositoryTest {
 
+    public static final String DESCRIPTION = "new";
+
     @Test
     public void save() {
         PurseEntity source = createPurse();
@@ -31,9 +33,9 @@ public class TransactionRepositoryTest extends AbstractRepositoryTest {
         transaction.setSource(source);
         transaction.setDestination(destination);
         transactionRepository.save(transaction);
-        transaction.setDescription("new");
+        transaction.setDescription(DESCRIPTION);
         transaction = transactionRepository.save(transaction);
-        assertEquals("new", transaction.getDescription());
+        assertEquals(DESCRIPTION, transaction.getDescription());
     }
 
     @Test

@@ -11,6 +11,8 @@ import static org.junit.Assert.*;
 public class PurseRepositoryTest extends AbstractRepositoryTest {
 
 
+    public static final String NUMBER = "321";
+
     @Test
     @Transactional
     public void save() {
@@ -27,11 +29,11 @@ public class PurseRepositoryTest extends AbstractRepositoryTest {
     @Test
     public void update() {
         PurseEntity purse = createPurse();
-        purse.setNumber("321");
+        purse.setNumber(NUMBER);
         purseRepository.save(purse);
         PurseEntity result = purseRepository.findOne(purse.getId());
 
-        assertEquals("321", result.getNumber());
+        assertEquals(NUMBER, result.getNumber());
     }
 
     @Test
