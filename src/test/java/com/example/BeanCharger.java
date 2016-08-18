@@ -46,7 +46,7 @@ public class BeanCharger {
         }
 
         private static Object generateRandomValue(Class<?> fieldType) {
-            if (fieldType.equals(String.class)) {
+            if (String.class.isAssignableFrom(fieldType)) {
                 return UUID.randomUUID().toString().substring(0, 20);
             } else if (Date.class.isAssignableFrom(fieldType)) {
                 return new Date(0L);
@@ -54,9 +54,9 @@ public class BeanCharger {
                 return LocalDateTime.now();
             } else if (BigDecimal.class.isAssignableFrom(fieldType)) {
                 return BigDecimal.valueOf(random.nextDouble());
-            } else if (fieldType.equals(Integer.TYPE)) {
+            } else if (Integer.class.isAssignableFrom(fieldType)) {
                 return random.nextInt();
-            } else if (fieldType.equals(Long.TYPE)) {
+            } else if (Long.class.isAssignableFrom(fieldType)) {
                 return random.nextInt();
             } else if (Enum.class.isAssignableFrom(fieldType)) {
                 Object[] enumValues = fieldType.getEnumConstants();
