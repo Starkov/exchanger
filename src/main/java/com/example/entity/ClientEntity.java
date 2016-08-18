@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import java.util.List;
 
-@Entity(name = "person")
+@Entity
 @DiscriminatorValue("CLIENT")
 public class ClientEntity extends PersonEntity {
 

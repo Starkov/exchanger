@@ -100,7 +100,6 @@ CREATE TABLE "commission" (
 	"source_currency_id" integer NOT NULL,
 	"destination_currency_id" integer NOT NULL,
 	"amount" numeric(24,6) NOT NULL,
-	"type" VARCHAR(20) NOT NULL,
 	"creation_date" TIMESTAMP NOT NULL,
 	"last_edit_date" TIMESTAMP NOT NULL,
 	CONSTRAINT commission_pk PRIMARY KEY ("source_currency_id","destination_currency_id")
