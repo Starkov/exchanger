@@ -107,24 +107,6 @@ CREATE TABLE "commission" (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "service_account" (
-	"id" serial NOT NULL,
-	"name" VARCHAR(45) NOT NULL,
-	"number" VARCHAR(45) NOT NULL,
-	"description" VARCHAR(512) NOT NULL,
-	"creation_date" TIMESTAMP NOT NULL,
-	"last_edit_date" TIMESTAMP NOT NULL,
-	CONSTRAINT service_account_pk PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-
-
 ALTER TABLE "person_role" ADD CONSTRAINT "person_role_fk0" FOREIGN KEY ("person_id") REFERENCES "person"("id");
 ALTER TABLE "person_role" ADD CONSTRAINT "person_role_fk1" FOREIGN KEY ("role_id") REFERENCES "role"("id");
 
