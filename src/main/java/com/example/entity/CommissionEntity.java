@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 @Entity(name = "commission")
 public class CommissionEntity {
     @EmbeddedId
-    private CommissionId id;
+    private CommissionId commissionId;
     @Column(nullable = false)
     private Integer amount;
     private LocalDateTime creationDate;
@@ -23,12 +23,12 @@ public class CommissionEntity {
         this.lastEditDate = LocalDateTime.now();
     }
 
-    public CommissionId getId() {
-        return id;
+    public CommissionId getCommissionId() {
+        return commissionId;
     }
 
-    public void setId(CommissionId id) {
-        this.id = id;
+    public void setCommissionId(CommissionId id) {
+        this.commissionId = id;
     }
 
     public Integer getAmount() {

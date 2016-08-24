@@ -10,7 +10,7 @@ import java.util.List;
 @DiscriminatorValue("CLIENT")
 public class ClientEntity extends PersonEntity {
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client", cascade = CascadeType.REMOVE)
     private List<PurseEntity> purses;
 
 

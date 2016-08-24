@@ -8,20 +8,20 @@ import static org.junit.Assert.*;
 
 public class PurseTypeRepositoryTest extends AbstractRepositoryTest {
 
-    public static final String NEW_NAME = "New name";
+    private static final String NEW_NAME = "New name";
 
     @Test
     public void save() {
         PurseTypeEntity purseType = createPurseType();
         assertNotNull(purseType);
+        assertNotNull(purseType.getId());
     }
 
     @Test
     public void update() {
         PurseTypeEntity purseType = createPurseType();
         purseType.setName(NEW_NAME);
-        purseTypeRepository.save(purseType);
-        purseType = purseTypeRepository.findOne(purseType.getId());
+        purseType = purseTypeRepository.save(purseType);
         assertEquals(NEW_NAME, purseType.getName());
     }
 

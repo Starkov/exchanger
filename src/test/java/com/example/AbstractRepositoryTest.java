@@ -35,34 +35,22 @@ public abstract class AbstractRepositoryTest extends AbstractTest {
     }
 
     protected PurseTypeEntity createPurseType() {
-        return purseTypeRepository.save(random(PurseTypeEntity.class));
+        PurseTypeEntity entity = random(PurseTypeEntity.class);
+        return purseTypeRepository.save(entity);
     }
 
-
     protected PurseEntity createPurse() {
-        ClientEntity client = random(ClientEntity.class);
-        client.setRoles(asList(createRole()));
-
         PurseEntity purse = random(PurseEntity.class);
-        purse.setClient(client);
-        client.setPurses(asList(purse));
+        purse.setClient(createClient());
         purse.setPurseType(createPurseType());
         purse.setCurrency(createCurrency());
-        clientRepository.save(client);
-        return purse;
+        return purseRepository.save(purse);
     }
 
     protected ClientEntity createClient() {
         ClientEntity client = random(ClientEntity.class);
         client.setRoles(asList(createRole()));
-
-        PurseEntity purse = random(PurseEntity.class);
-        purse.setClient(client);
-        client.setPurses(asList(purse));
-        purse.setPurseType(createPurseType());
-        purse.setCurrency(createCurrency());
-        clientRepository.save(client);
-        return client;
+        return clientRepository.save(client);
     }
 
     protected EmployeeEntity createEmployee() {
@@ -76,7 +64,7 @@ public abstract class AbstractRepositoryTest extends AbstractTest {
         CommissionId commissionId = new CommissionId();
         commissionId.setSource(createCurrency());
         commissionId.setDestination(createCurrency());
-        commission.setId(commissionId);
+        commission.setCommissionId(commissionId);
         return commissionRepository.save(commission);
     }
 }

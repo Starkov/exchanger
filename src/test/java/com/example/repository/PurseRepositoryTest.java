@@ -3,7 +3,6 @@ package com.example.repository;
 import com.example.AbstractRepositoryTest;
 import com.example.entity.PurseEntity;
 import org.junit.Test;
-import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.Assert.*;
 
@@ -11,37 +10,28 @@ import static org.junit.Assert.*;
 public class PurseRepositoryTest extends AbstractRepositoryTest {
 
 
-    public static final String NUMBER = "321";
+    private static final String NUMBER = "321";
 
     @Test
-    @Transactional
     public void save() {
         PurseEntity purse = createPurse();
-        PurseEntity result = purseRepository.findOne(purse.getId());
-
-        assertNotNull(result);
-        assertNotNull(result.getCurrency());
-        assertNotNull(result.getPurseType());
-        assertNotNull(result.getClient());
-        assertFalse(result.getClient().getRoles().isEmpty());
+        assertNotNull(purse);
+        assertNotNull(purse.getId());
     }
 
     @Test
     public void update() {
         PurseEntity purse = createPurse();
         purse.setNumber(NUMBER);
-        purseRepository.save(purse);
-        PurseEntity result = purseRepository.findOne(purse.getId());
-
-        assertEquals(NUMBER, result.getNumber());
+        purse = purseRepository.save(purse);
+        assertEquals(NUMBER, purse.getNumber());
     }
 
     @Test
     public void delete() {
         PurseEntity purse = createPurse();
-        purseRepository.delete(purse.getId());
-        PurseEntity result = purseRepository.findOne(purse.getId());
-
-        assertNull(result);
+        purseRepository.delete(purse);
+        purse = purseRepository.findOne(purse.getId());
+        assertNull(purse);
     }
 }

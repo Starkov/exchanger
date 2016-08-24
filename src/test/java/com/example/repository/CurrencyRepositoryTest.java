@@ -14,14 +14,14 @@ public class CurrencyRepositoryTest extends AbstractRepositoryTest {
     public void save() {
         CurrencyEntity currency = createCurrency();
         assertNotNull(currency);
+        assertNotNull(currency.getId());
     }
 
     @Test
     public void update() {
         CurrencyEntity currency = createCurrency();
         currency.setName(Currency.EUR);
-        currencyRepository.save(currency);
-        currency = currencyRepository.findOne(currency.getId());
+        currency = currencyRepository.save(currency);
         assertEquals(Currency.EUR, currency.getName());
     }
 

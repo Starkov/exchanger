@@ -9,12 +9,13 @@ import static org.junit.Assert.*;
 
 public class ClientRepositoryTest extends AbstractRepositoryTest {
 
-    public static final String EMAIL = "newEmail@bk.com";
+    private static final String EMAIL = "newEmail@bk.com";
 
     @Test
     public void save() {
         ClientEntity client = createClient();
         assertNotNull(client);
+        assertNotNull(client.getId());
     }
 
     @Test
@@ -22,7 +23,6 @@ public class ClientRepositoryTest extends AbstractRepositoryTest {
         ClientEntity client = createClient();
         client.setEmail(EMAIL);
         client = clientRepository.save(client);
-        assertNotNull(client);
         assertEquals(EMAIL, client.getEmail());
     }
 

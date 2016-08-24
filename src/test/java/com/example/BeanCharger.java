@@ -7,8 +7,11 @@ import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.UUID;
+
+import static java.util.Arrays.asList;
 
 public class BeanCharger {
     private static Random random = new Random();
@@ -28,7 +31,7 @@ public class BeanCharger {
 
     private static class Callback implements ReflectionUtils.FieldCallback {
         private Object targetObject;
-
+        private List<String> ignoreFields = asList("id");
         Callback(Object targetObject) {
             this.targetObject = targetObject;
         }
@@ -36,7 +39,7 @@ public class BeanCharger {
         @Override
         public void doWith(Field field) throws IllegalAccessException {
             Class<?> fieldType = field.getType();
-            if (!Modifier.isFinal(field.getModifiers())) {
+            if (!Modifier.isFinal(field.getModifiers()) & !ignoreFields.contains(field.getName())) {
                 Object value = generateRandomValue(fieldType);
                 if (value != null) {
                     ReflectionUtils.makeAccessible(field);

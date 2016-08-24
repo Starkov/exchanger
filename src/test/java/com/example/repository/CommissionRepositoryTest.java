@@ -9,12 +9,13 @@ import static org.junit.Assert.*;
 
 public class CommissionRepositoryTest extends AbstractRepositoryTest {
 
-    public static final Integer AMOUNT = 3;
+    private static final Integer AMOUNT = 3;
 
     @Test
     public void save() {
         CommissionEntity commission = createCommission();
         assertNotNull(commission);
+        assertNotNull(commission.getCommissionId());
     }
 
     @Test
@@ -22,21 +23,23 @@ public class CommissionRepositoryTest extends AbstractRepositoryTest {
         CommissionEntity commission = createCommission();
         commission.setAmount(AMOUNT);
         commission = commissionRepository.save(commission);
-        CommissionEntity result = commissionRepository.findOne(commission.getId());
-        assertEquals(AMOUNT, result.getAmount());
+        assertEquals(AMOUNT, commission.getAmount());
     }
 
     @Test
     public void delete() {
         CommissionEntity commission = createCommission();
         commissionRepository.delete(commission);
-        assertNull(commissionRepository.findOne(commission.getId()));
+        commission = commissionRepository.findOne(commission.getCommissionId());
+        assertNull(commission);
     }
 
     @Test
     public void findCommissionAmount() {
         CommissionEntity commission = createCommission();
-        Integer result = commissionRepository.findCommissionAmount(commission.getId().getSource().getId(), commission.getId().getDestination().getId());
+        Integer sourceId = commission.getCommissionId().getSource().getId();
+        Integer destinationId = commission.getCommissionId().getDestination().getId();
+        Integer result = commissionRepository.findCommissionAmount(sourceId, destinationId);
         assertNotNull(result);
         assertEquals(commission.getAmount(), result);
     }
