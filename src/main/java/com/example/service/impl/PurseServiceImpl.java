@@ -17,12 +17,22 @@ public class PurseServiceImpl implements PurseService {
     private PurseRepository purseRepository;
 
     @Override
-    public List<PurseEntity> findAllFor(Integer clientId) {
+    public List<PurseEntity> findAllForClient(Integer clientId) {
         return Lists.newArrayList(purseRepository.findAllForClient(clientId));
     }
 
     @Override
     public PurseEntity find(Integer id) {
         return purseRepository.findOne(id);
+    }
+
+    @Override
+    public PurseEntity save(PurseEntity purse) {
+        return purseRepository.save(purse);
+    }
+
+    @Override
+    public void delete(Integer id) {
+        purseRepository.delete(id);
     }
 }
