@@ -18,8 +18,7 @@ public class PurseServiceImpl implements PurseService {
 
     @Override
     public List<PurseEntity> findAllFor(Integer clientId) {
-        //TODO
-        return Lists.newArrayList(purseRepository.findAll());
+        return Lists.newArrayList(purseRepository.findAllForClient(clientId));
     }
 
     @Override
