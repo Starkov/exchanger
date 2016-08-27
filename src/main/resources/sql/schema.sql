@@ -84,7 +84,7 @@ CREATE TABLE "purse_type" (
 );
 
 
-CREATE TABLE "currency" (
+CREATE TABLE "name" (
 	"id" serial NOT NULL,
 	"name" varchar(45) NOT NULL UNIQUE,
 	"creation_date" TIMESTAMP NOT NULL,
@@ -112,7 +112,7 @@ ALTER TABLE "person_role" ADD CONSTRAINT "person_role_fk1" FOREIGN KEY ("role_id
 
 ALTER TABLE "purse" ADD CONSTRAINT "purse_fk0" FOREIGN KEY ("purse_type_id") REFERENCES "purse_type"("id");
 ALTER TABLE "purse"
-  ADD CONSTRAINT "purse_fk1" FOREIGN KEY ("currency_id") REFERENCES "currency" ("id");
+  ADD CONSTRAINT "purse_fk1" FOREIGN KEY ("currency_id") REFERENCES "name" ("id");
 ALTER TABLE "purse" ADD CONSTRAINT "purse_fk2" FOREIGN KEY ("person_id") REFERENCES "person"("id");
 
 ALTER TABLE "transaction" ADD CONSTRAINT "transaction_fk0" FOREIGN KEY ("source_purse_id") REFERENCES "purse"("id");
@@ -120,7 +120,7 @@ ALTER TABLE "transaction" ADD CONSTRAINT "transaction_fk1" FOREIGN KEY ("destina
 
 
 ALTER TABLE "commission"
-  ADD CONSTRAINT "commission_fk0" FOREIGN KEY ("source_currency_id") REFERENCES "currency" ("id");
+  ADD CONSTRAINT "commission_fk0" FOREIGN KEY ("source_currency_id") REFERENCES "name" ("id");
 ALTER TABLE "commission"
-  ADD CONSTRAINT "commission_fk1" FOREIGN KEY ("destination_currency_id") REFERENCES "currency" ("id");
+  ADD CONSTRAINT "commission_fk1" FOREIGN KEY ("destination_currency_id") REFERENCES "name" ("id");
 
