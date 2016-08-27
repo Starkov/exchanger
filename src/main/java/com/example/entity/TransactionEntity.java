@@ -19,11 +19,11 @@ public class TransactionEntity extends BaseEntity {
     private Action action;
     // что делать если придется удалять пользователя который пересылал ДЗ?
     // Удалить транзакции вместе с пользователем и кошельками?
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "source_purse_id")
     private PurseEntity source;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "destination_purse_id")
     private PurseEntity destination;
 
