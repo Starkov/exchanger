@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+
+    <definition name="site.login" template="/WEB-INF/layouts/container.jspx">
+        <put-attribute name="content" value="/WEB-INF/views/login.jspx"/>
+    </definition>
+
+    <definition name="cabinet" template="/WEB-INF/layouts/cabinet.jspx">
+        <put-attribute name="header" type="template" value="/WEB-INF/views/header.jspx"/>
+        <put-attribute name="menu" value=".menu"/>
+    </definition>
+
+    <definition name=".menu" template="/WEB-INF/views/menu.jspx" preparer="menuPreparer"/>
+
+
+    <definition name="site.cabinet.purse" extends="cabinet">
+        <put-attribute name="body" value="/WEB-INF/views/purse/purse-view.jspx"/>
+    </definition>
+
+
+</tiles-definitions>
