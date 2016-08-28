@@ -18,7 +18,7 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <li><a href="#">Добавить</a></li>
+                    <li><a href="/purse/add">Добавить</a></li>
                     <li><a href="#">Удалить</a></li>
                     <li><a href="#">Полнить</a></li>
                     <li><a href="#">Перевод</a></li>

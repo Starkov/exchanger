@@ -21,5 +21,8 @@
         <put-attribute name="body" value="/WEB-INF/views/purse/purse-view.jspx"/>
     </definition>
 
+    <definition name="site.cabinet.purse.add" extends="cabinet">
+        <put-attribute name="body" value="/WEB-INF/views/purse/purse-add.jspx"/>
+    </definition>
 
 </tiles-definitions>
