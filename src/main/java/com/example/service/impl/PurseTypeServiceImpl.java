@@ -5,9 +5,11 @@ import com.example.repository.PurseTypeRepository;
 import com.example.service.PurseTypeService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PurseTypeServiceImpl implements PurseTypeService {
 
     @Autowired

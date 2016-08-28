@@ -6,9 +6,11 @@ import com.example.repository.CurrencyRepository;
 import com.example.service.CurrencyService;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CurrencyServiceImpl implements CurrencyService {
 
     @Autowired

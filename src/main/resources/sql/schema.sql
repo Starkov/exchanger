@@ -40,14 +40,14 @@ CREATE TABLE "person_role" (
 
 
 CREATE TABLE "purse" (
-	"id" serial NOT NULL,
-	"number" VARCHAR(20) NOT NULL UNIQUE,
-	"purse_type_id" integer NOT NULL,
-	"currency_id" integer NOT NULL,
-	"balance" numeric(24,6) NOT NULL,
-	"person_id" integer NOT NULL,
-	"creation_date" TIMESTAMP NOT NULL,
-	"last_edit_date" TIMESTAMP NOT NULL,
+  "id"             serial        NOT NULL,
+  "number"         VARCHAR(36)   NOT NULL UNIQUE,
+  "purse_type_id"  integer       NOT NULL,
+  "currency_id"    integer       NOT NULL,
+  "balance"        numeric(24,6) NOT NULL,
+  "person_id"      integer       NOT NULL,
+  "creation_date"  TIMESTAMP     NOT NULL,
+  "last_edit_date" TIMESTAMP     NOT NULL,
 	CONSTRAINT purse_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
