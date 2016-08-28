@@ -3,7 +3,7 @@ package com.example.entity;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+@Entity(name = "Person")
 @Table(name = "PERSON")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "discriminator", discriminatorType = DiscriminatorType.STRING)

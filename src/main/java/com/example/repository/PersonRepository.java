@@ -6,6 +6,6 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 public interface PersonRepository extends CrudRepository<PersonEntity, Integer> {
-    @Query("select p from person p Where p.email = :email")
+    @Query("select p from Person p Where p.email = :email")
     PersonEntity findByEmail(@Param("email") String email);
 }
